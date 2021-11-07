@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Painel - Componentes Alquímicos</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">Componentes<span>Alquímicos</span></header>
+
+    <div class="menuopen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/redpg.html">RedPG</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="principalBox">
+        <p class="fonte"><strong>Fonte:</strong>
+            <a href="https://coisinhaverde.com.br/mightyblade/downloads" target="_blank">Guia do Herói 3.4</a>
+            [Pág.73]
+        </p>
+        <input type="text" id="pesquisarEntrada" class="pesquisarEntrada" onkeyup="pesquisarTabela()"
+            placeholder="Pesquisar na tabela...">
+        <table id="tabela" class="tabela">
+            <tr class="tabelaHeader">
+                <th style="width:25%;" onclick="ordenarTabela(0)">Ingrediente</th>
+                <th style="width:10%;" onclick="ordenarTabela(1)">Custo</th>
+                <th style="width:10%;" onclick="ordenarTabela(2)">Raridade</th>
+                <th style="width:55%;" onclick="ordenarTabela(3)">Aquisição</th>
+            </tr>
+            <tr>
+                <td class="tooltip">Asa de Morcego* <span class="tooltiptext">Fornece componentes suficientes para duas poções.</span></td>
+                <td>10</td>
+                <td>Comum</td>
+                <td>Caça (11), Cavernas, florestas e selvas</td>
+            </tr>
+            <tr>
+                <td>Azeviche</td>
+                <td>100</td>
+                <td>Incomum</td>
+                <td>Garimpo, Qualquer terreno</td>
+            </tr>
+            <tr>
+                <td>Cogumelo Vermelho</td>
+                <td>50</td>
+                <td>Incomum</td>
+                <td>Forrageamento (14), planícies</td>
+            </tr>
+            <tr>
+                <td>Coração de Grifo</td>
+                <td>1000</td>
+                <td>Raro</td>
+                <td>Caça (13), Colinas e Planícies</td>
+            </tr>
+            <tr>
+                <td class="tooltip">Dente de Dragão** <span class="tooltiptext">Fornece componentes para uma quantidade de poções igual quantidade de dano por Perfuração causado por sua mordida.</span></td>
+                <td>200</td>
+                <td>Raro</td>
+                <td>Caça (varia), Qualquer criatura draconica</td>
+            </tr>
+            <tr>
+                <td>Enxofre</td>
+                <td>50</td>
+                <td>Incomum</td>
+                <td>Garimpo, Montanhas</td>
+            </tr>
+            <tr>
+                <td>Erva da Lua</td>
+                <td>75</td>
+                <td>Incomum</td>
+                <td>Forrageamento (12), Florestas</td>
+            </tr>
+            <tr>
+                <td>Erva dos Passos</td>
+                <td>10</td>
+                <td>Comum</td>
+                <td>Forrageamento (10), Florestas</td>
+            </tr>
+            <tr>
+                <td>Flor de Argusia</td>
+                <td>500</td>
+                <td>Raro</td>
+                <td>Forrageamento (14), Litoral</td>
+            </tr>
+            <tr>
+                <td>Flor de Isura</td>
+                <td>20</td>
+                <td>Incomum</td>
+                <td>Forrageamento (12), Planícies e florestas</td>
+            </tr>
+            <tr>
+                <td>Folha de Eucalipto</td>
+                <td>5</td>
+                <td>Comum</td>
+                <td>Forrageamento (10), Florestas</td>
+            </tr>
+            <tr>
+                <td>Folha de Garraka</td>
+                <td>50</td>
+                <td>Comum</td>
+                <td>Forrageamento (10), Pântanos</td>
+            </tr>
+            <tr>
+                <td>Folha de Oliveira</td>
+                <td>5</td>
+                <td>Comum</td>
+                <td>Forrageamento (10), Qualquer terreno</td>
+            </tr>
+            <tr>
+                <td class="tooltip">Olho de Basilisco* <span class="tooltiptext">Fornece componentes suficientes para duas poções.</span></td>
+                <td>300</td>
+                <td>Incomum</td>
+                <td>Caça (10), Cavernas</td>
+            </tr>
+            <tr>
+                <td class="tooltip">Ossos de Hidra**<span class="tooltiptext">Fornece componentes para uma quantidade de poções igual quantidade de dano por Perfuração causado por sua mordida.</span></td>
+                <td>200</td>
+                <td>Raro</td>
+                <td>Caça (15), Cavernas</td>
+            </tr>
+            <tr>
+                <td>Pele de Camaleão</td>
+                <td>100</td>
+                <td>Incomum</td>
+                <td>Caça</td>
+            </tr>
+            <tr>
+                <td>Pó de Âmbar</td>
+                <td>100</td>
+                <td>Incomum</td>
+                <td>Garimpo, Montanhas e colinas</td>
+            </tr>
+            <tr>
+                <td>Pó de Obsidiana</td>
+                <td>50</td>
+                <td>Incomum</td>
+                <td>Garimpo, Montanhas</td>
+            </tr>
+            <tr>
+                <td>Pó de Pirita</td>
+                <td>50</td>
+                <td>Incomum</td>
+                <td>Garimpo, Qualquer terreno</td>
+            </tr>
+            <tr>
+                <td>Rabo de Salamandra</td>
+                <td>75</td>
+                <td>Incomum</td>
+                <td>Caça (13), Florestas</td>
+            </tr>
+            <tr>
+                <td>Raiz de Carvalho</td>
+                <td>5</td>
+                <td>Comum</td>
+                <td>Forrageamento (10), Florestas</td>
+            </tr>
+            <tr>
+                <td>Raiz de Mandrágora</td>
+                <td>1600</td>
+                <td>Raro</td>
+                <td>Forrageamento (17), pântanos e selvas</td>
+            </tr>
+            <tr>
+                <td>Tarântula</td>
+                <td>5</td>
+                <td>Comum</td>
+                <td>Caça</td>
+            </tr>
+            <tr>
+                <td>Trevo de quatro folhas</td>
+                <td>50</td>
+                <td>Incomum</td>
+                <td>Forrageamento (14), qualquer terreno</td>
+            </tr>
+            <tr>
+                <td class="tooltip">Veneno de Cobra* <span class="tooltiptext">Fornece componentes suficientes para duas poções.</span></td>
+                <td>70</td>
+                <td>Comum</td>
+                <td>Caça (11), Qualquer terreno</td>
+            </tr>
+            <tr>
+                <td>Veneno de Escorpião</td>
+                <td>30</td>
+                <td>Comum</td>
+                <td>Caça (10), Qualquer terreno</td>
+            </tr>
+            <tr>
+                <td class="tooltip">Veneno de Planta Assassina**<span class="tooltiptext">Fornece componentes para uma quantidade de poções igual quantidade de dano por Perfuração causado por sua mordida.</span></td>
+                <td>150</td>
+                <td>Incomum</td>
+                <td>Forrageamento (14), Florestas e Selvas</td>
+            </tr>
+        </table>
+    </section>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>

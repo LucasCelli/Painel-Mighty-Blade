@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MB Gerador</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/html2canvas.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">Dificuldade<span>Testes</span></header>
+
+    <div class="menuopen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/redpg.html">RedPG</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="principalBox">
+    <p class="fonte"><strong>Fonte:</strong> 
+        <a href="https://coisinhaverde.com.br/mightyblade/downloads" target="_blank">Manual Mighty Blade 3.4.1</a> [Pág.22]
+    </p>
+        <input type="text" id="pesquisarEntrada" class="pesquisarEntrada" onkeyup="pesquisarTabela()" name="keyword" placeholder="Pesquisar teste...">
+        <table id="tabela" class="tabela">
+            <tr class="tabelaHeader">
+                <th style="width:10%;" onclick="ordenarTabela(0)">Dificuldade</th>
+                <th style="width:20%;" onclick="ordenarTabela(1)">Nível</th>
+                <th style="width:70%;" onclick="ordenarTabela(2)">Exemplo</th>
+            </tr>
+            <tr>
+                <td>7 ou menos</td>
+                <td>Corriqueiro</td>
+                <td>Colocar uma corda num arco, acertar um golpe de espada em um alvo estático, perceber um animal grande numa planície, enumerar de cor os dogmas de sua divindade.</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Fácil</td>
+                <td>Escalar um muro de pedras irregulares, saltar um buraco de 2 metros, seguir os rastros de um Ettin, cantar uma música no ritmo.</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Moderado</td>
+                <td>Arrombar uma porta de madeira com um chute, se equilibrar no alto de um muro de tijolos, fazer a tradução simultânea de uma língua que o personagem conhece, manter uma plateia entretida com uma história.</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Desafiador</td>
+                <td>Segurar a respiração por uma quantidade de minutos maior do que a sua Força, saltar de uma janela do segundo andar sem se machucar, fazer curativos em um ferimento no campo de batalha, manter-se alerta durante uma noite de vigília</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Difícil</td>
+                <td>Virar uma carroça com as mãos, saltar por cima de um adversário durante um combate, lembrar com precisão de uma passagem específica de um texto, portar-se de maneira apropriada em uma corte de costumes estrangeiros.</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Muito Difícil</td>
+                <td>Quebrar uma espada com as mãos, ficar de pé no dorso de um animal em movimento, reconhecer as propriedades de uma poção específica somente pelo cheiro, realizar adequadamente um ritual litúrgico de uma religião que não é a sua.</td>
+            </tr>
+            <tr>
+                <td>18 ou mais</td>
+                <td>Lendário</td>
+                <td>Livrar-se de grilhões usando apenas a força dos braços, acertar uma flecha através de um anel à dez passos de distância, traduzir um texto de uma língua morta sem precisar de referências, tocar uma música tão bela que faz um Lich se comover.</td>
+            </tr>
+        </table>
+    </section>
+    <script type="text/javascript" src="scripts/script.js"></script>
+    <script type="text/javascript" src="scripts/tabelas.js"></script>
+</body>
+</html>

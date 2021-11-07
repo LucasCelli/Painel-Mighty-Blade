@@ -1,0 +1,189 @@
+@import 'style.css';
+
+body {
+    background: #ECEFF1;
+    color: #192125;
+}
+
+.header {
+    color: #192125;
+    background: #90A4AE;
+}
+
+.sidebarBox {
+    background: #B0BEC5;
+    color: #192125;
+}
+
+.menu li ul {
+    background: #B0BEC5;
+}
+
+.menu li a {
+    color: #192125;
+    border-bottom: solid 1px #78909C;
+}
+
+.menu li ul a:hover {
+    background: #CFD8DC;
+}
+
+.menu li a:hover {
+    background: #CFD8DC;
+}
+
+.btnUp,
+.btnDim {
+    color: #FFFFFF;
+    background: #78909C;
+}
+
+.btnDim {
+    background: #607D8B;
+}
+
+.btnUp:hover,
+.btnDim:hover {
+    background: #B0BEC5;
+}
+
+hr {
+    border-bottom: solid 1px #192125;
+}
+
+.fichaBox {
+    background: #ffffff;
+}
+
+.fichaBox .nome {
+    background: #CFD8DC;
+}
+
+.fichaBox .raca,
+.fichaBox .classe {
+    background: #CFD8DC;
+}
+
+.atributosBox .for,
+.atributosBox .agi,
+.atributosBox .int,
+.atributosBox .von,
+.atributosBox .bloqueio,
+.atributosBox .esquiva,
+.atributosBox .determinacao,
+.fichaBox .nivel {
+    background: #CFD8DC;
+}
+
+.fichaBox .nivel {
+    background: #B0BEC5;
+}
+
+.atributosBox .defesa {
+    background: #CFD8DC;
+}
+
+.atributosBox .titulo {
+    background: #B0BEC5;
+}
+
+.atributosBox .somaFor,
+.atributosBox .somaAgi,
+.atributosBox .somaInt,
+.atributosBox .somaVon {
+    background: #B0BEC5;
+}
+
+.equipamentos {
+    display: block;
+    width: 700px;
+    padding: 10px;
+    border-radius: 20px;
+    background: #CFD8DC;
+}
+
+.tabEquipamentos tr,
+.tabEquipamentos td {
+    border: 1px solid #B0BEC5;
+}
+
+.abrirComandoBox {
+    color: #192125;
+    background: #B0BEC5;
+}
+
+.abrirComandoBox:hover {
+    background: #CFD8DC;
+}
+
+.pesquisarEntrada {
+    background-color: #192125;
+    color: #FFFFFF;
+}
+
+.pesquisarEntrada:focus {
+    border: 1px solid #455A64;
+}
+
+.tabela {
+    border: 1px solid #263238;
+}
+
+.tabela tr {
+    border-bottom: 1px solid #263238;
+}
+
+.tabela tr.header,
+.tabela tr:hover {
+    background-color: #263238;
+}
+
+.fonte {
+    background: #263238;
+}
+
+.fonte a {
+    color: #607D8B;
+}
+
+.highlight {
+    color: #FFFFFF;
+    background-color: rgb(255, 255, 0);
+}
+
+.tooltip .tooltiptext {
+    background-color: #263238;
+    color: #FFFFFF;
+}
+
+.tooltip .tooltiptext::after {
+    border-color: #263238 transparent transparent transparent;
+}
+
+.modal-window {
+    background-color: #ECEFF1;
+}
+
+.modal-window>div {
+    background: #ECEFF1;
+}
+
+.habilidades {
+    background: #CFD8DC;
+}
+
+.habilidades li a {
+    color: #192125;
+}
+
+.habilidades li a:hover {
+    background: #B0BEC5;
+}
+
+.pontosVidaMana {
+    background: #CFD8DC;
+}
+
+.avisoWip {
+    color: #192125;
+}

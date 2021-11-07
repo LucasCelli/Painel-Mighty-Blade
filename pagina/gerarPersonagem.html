@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title id="titulo">Painel - Gerar Personagem</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/html2canvas.js"></script>
+    <script>
+        function openWindow(url) {
+            window.open(url, '_blank');
+            window.focus();
+        }
+    </script>
+</head>
+
+<body onload="geraNPC()">
+    <header class="header">Gerar<span>Personagem</span></header>
+    <a href="/pagina/gerarPersonagem.html" onclick="javascript:openWindow(this.href);return false;" class="novaguia">Nova Guia</a>
+
+    <div class="menuopen" id="menuOpen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/redpg.html">RedPG</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="principalBox" id="principalBox">
+
+        <span class="teste" id="hueteste"></span>
+
+        <div class="comandoBox" id="comBox">
+            <div id="comBoxheader" class="comandoBoxHeader">Customizar Gerador <span onclick="esconderBox()"
+                    class="btnEsconderBox">
+                    <span class="gira"><i class="material-icons">remove</i></span>
+                </span>
+            </div>
+            <p><strong>Alterar Personagem</strong></p>
+            <label class="selecionar">Selecionar Raça:
+                <select id="selecionarRaca" onchange="alteraRaca()">
+                    <option selected>Aleatório</option>
+                    <option>Aesir</option>
+                    <option>Anão</option>
+                    <option>Astério Parbani</option>
+                    <option>Centauro</option>
+                    <option>Elfo</option>
+                    <option>Faen</option>
+                    <option>Fauno</option>
+                    <option>Fira</option>
+                    <option>Humano</option>
+                    <option>Juban</option>
+                    <option>Levent</option>
+                    <option>Mahok</option>
+                    <option>Metadílio</option>
+                    <option>Tailox</option>
+                </select>
+            </label>
+            <br>
+            <label class="selecionar">Selecionar Classe:
+                <select id="selecionarClasse" onchange="alteraClasse()">
+                    <option selected>Aleatório</option>
+                    <option>Bardo</option>
+                    <option>Druida</option>
+                    <option>Espadachim</option>
+                    <option>Feiticeiro</option>
+                    <option>Guerreiro</option>
+                    <option>Ladino</option>
+                    <option>Paladino</option>
+                    <option>Patrulheiro</option>
+                    <option>Rúnico</option>
+                    <option>Sacerdote</option>
+                    <option>Senescal</option>
+                    <option>Xamã</option>
+                </select>
+            </label>
+            <br>
+            <label class="selecionar">Selecionar Nível:
+                <select id="selecionarNivel" onchange="alteraNivel()">
+                    <option selected>Aleatório</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                </select>
+            </label>
+            <br>
+            <label class="selecionar">Selecionar Sexo:
+                <select id="selecionarSexo" onchange="alteraSexo()">
+                    <option selected>Aleatório</option>
+                    <option>Masculino</option>
+                    <option>Feminino</option>
+                </select>
+            </label>
+
+            <p><strong>Alterar Atributos</strong></p>
+            <button class="btnUp" onclick="upaFor()">↑ Força</button>
+            <button class="btnUp" onclick="upaAgi()">↑ Agilidade</button>
+            <button class="btnUp" onclick="upaInt()">↑ Inteligência</button>
+            <button class="btnUp" onclick="upaVon()">↑ Vontade</button>
+            <br>
+            <button class="btnDim" onclick="dimFor()">↓ Força</button>
+            <button class="btnDim" onclick="dimAgi()">↓ Agilidade</button>
+            <button class="btnDim" onclick="dimInt()">↓ Inteligência</button>
+            <button class="btnDim" onclick="dimVon()">↓ Vontade</button>
+            <br>
+            <button class="btnDim" onclick="atributosPadrao()" style="width:100%">Resetar</button>
+            <br>
+            <p><strong>Recarregar</strong></p>
+            <button class="btnUp" onclick="alteraRaca()">Raça</button>
+            <button class="btnUp" onclick="alteraClasse()">Classe</button>
+            <button class="btnUp" onclick="geraNome()">Nome</button>
+            <button class="btnUp" onclick="alteraNivel()">Nível</button>
+            <button class="btnUp" onclick="geraHabilidades()">Habilidades</button>
+            <button class="btnUp" onclick="geraEquipamento()">Equipamento</button>
+            <br>
+            <p><strong>Defesa</strong></p>
+            <button class="btnUp" onclick="upaDef()">↑ Defesa</button>
+            <button class="btnUp" onclick="adicionarArmadura()">Adicionar Armadura</button>
+            <br>
+            <button class="btnDim" onclick="dimDef()">↓ Defesa</button>
+            <button class="btnUp" onclick="removerArmadura()">Remover Armadura</button>
+        </div>
+        <button class="btnGerar" onclick="exibirBox()" id="btnGerar">Customizar Ficha</button>
+
+        <div class="fichaBox" id="fichaPersonagem">
+            <div class="nome"><span id="nomeNPC"></span></div>
+            <div class="nivel"><span id="nivelNPC" title="Nível">1</span></div>
+            <div class="raca"><span id="racaNPC">Raça</span></div>
+            <div class="classe"><span id="classeNPC">Classe</span></div>
+
+            <div class="imgNPC" id="imgNPC"></div>
+
+            <div class="atributosBox">
+
+                <div class="pontosVidaMana">
+                    <span id="pontosVida"></span> /
+                    <span id="pontosMana"></span>
+                </div>
+
+                <div class="for">
+                    <div class="titulo">FOR</div><span id="atributoTotalFor">0</span>
+                </div>
+                <div class="somaFor">(<span id="atributoRacaFor">0</span>+<span id="atributoClasseFor">0</span>+<span
+                        id="atributoNivelFor">0</span>)</div>
+
+                <div class="agi">
+                    <div class="titulo">AGI</div><span id="atributoTotalAgi">0</span>
+                </div>
+                <div class="somaAgi">(<span id="atributoRacaAgi">0</span>+<span id="atributoClasseAgi">0</span>+<span
+                        id="atributoNivelAgi">0</span>)</div>
+
+                <div class="int">
+                    <div class="titulo">INT</div><span id="atributoTotalInt">0</span>
+                </div>
+                <div class="somaInt">(<span id="atributoRacaInt">0</span>+<span id="atributoClasseInt">0</span>+<span
+                        id="atributoNivelInt">0</span>)</div>
+
+                <div class="von">
+                    <div class="titulo">VON</div><span id="atributoTotalVon">0</span>
+                </div>
+                <div class="somaVon">(<span id="atributoRacaVon">0</span>+<span id="atributoClasseVon">0</span>+<span
+                        id="atributoNivelVon">0</span>)</div>
+
+                <div class="bloqueio">
+                    <div class="titulo">BLO</div><span id="bloqueioTotal">0</span>
+                </div>
+                <div class="esquiva">
+                    <div class="titulo">ESQ</div><span id="esquivaTotal">0</span>
+                </div>
+                <div class="defesa">
+                    <div class="titulo">DEF</div><span id="defesaTotal">0</span>
+                </div>
+                <div class="determinacao">
+                    <div class="titulo">DET</div><span id="determinacaoTotal">0</span>
+                </div>
+
+                <div class="ataquePrimario">
+                    <div class="titulo">Ataque Principal: </div><span id="ataquePrimario">0</span>
+                </div>
+
+                <div class="ataqueSecundario">
+                    <div class="titulo">Ataque Secundário: </div><span id="ataqueSecundario">0</span>
+                </div>
+
+                <div class="motivacao">
+                    <div class="titulo">Motivação: </div><span id="npcMotivacao"></span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="habilidades">
+            <h2>Habilidades</h2>
+
+            <ul>
+                <li><a href="#habilidadeAutomaticaRaca" id="automaticaRacaNome">Automática: Raça</a></li>
+                <li><a href="#habilidadeAutomaticaClasse" id="automaticaClasse">Automática: Classe</a></li>
+                <hr>
+                <li><a href="#habilidadeRaca1" id="habilidadeRaca">Habilidade de Raça</a></li>
+                <hr>
+                <li><a href="#habilidadeClasseBasica1" id="habilidadeClasse1">Habilidade de Classe 1</a></li>
+                <li><a href="#habilidadeClasseBasica2" id="habilidadeClasse2">Habilidade de Classe 2</a></li>
+                <li><a href="#habilidadeClasseBasica3" id="habilidadeClasse3">Habilidade de Classe 3</a></li>
+                <hr>
+                <li><a href="#habilidadeClasseAvancada" id="habilidadeClasse4">Habilidade de Classe 4</a></li>
+                <hr>
+                <li><a href="#habilidadeClasseFinal" id="habilidadeClasse5">Habilidade de Classe 5</a></li>
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="equipamentos">
+            <h2>Equipamentos</h2>
+
+            <table class="tabEquipamentos" style="width:100%">
+                <tr>
+                    <th>Arma</th>
+                    <th>Dano</th>
+                    <th>Tipo</th>
+                    <th>FN</th>
+                    <th>Distância</th>
+                    <th>Obs.</th>
+                </tr>
+
+                <tr id="armaPrimaria">
+                    <td id="nomeArma1">-</td>
+                    <td id="danoArma1">-</td>
+                    <td id="tipoArma1">-</td>
+                    <td id="fnArma1">-</td>
+                    <td id="distanciaArma1">-</td>
+                    <td id="obsArma1">-</td>
+                </tr>
+                <tr id="armaSecundaria">
+                    <td id="nomeArma2">-</td>
+                    <td id="danoArma2">-</td>
+                    <td id="tipoArma2">-</td>
+                    <td id="fnArma2">-</td>
+                    <td id="distanciaArma2">-</td>
+                    <td id="obsArma2">-</td>
+                </tr>
+
+                <tr>
+                    <th>Armadura</th>
+                    <th>Defesa</th>
+                    <th>FN</th>
+                    <th>Obs.</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                <tr id="armadura">
+                    <td id="nomeArmadura">-</td>
+                    <td id="defArmadura">-</td>
+                    <td id="fnArmadura">-</td>
+                    <td id="obsArmadura">-</td>
+                    <td id=""></td>
+                    <td id=""></td>
+                </tr>
+
+                <div id="somaDano"></div>
+
+            </table>
+        </div>
+    </section>
+
+    <hr>
+
+    <div id="modalficha" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div id="img-out"></div>
+    </div>
+
+    <div id="habilidadeAutomaticaClasse" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="automaticaClasseModal"></h1>
+            <p style="margin-bottom: 10px;"><em id="automaticaClasseTipo"></em></p>
+            <p id="automaticaClasseDesc"></p>
+        </div>
+    </div>
+
+    <div id="habilidadeAutomaticaRaca" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="automaticaRacaNomeModal"></h1>
+            <p style="margin-bottom: 10px;"><em id="automaticaRacaTipo"></em></p>
+            <p id="automaticaRacaDesc"></p>
+        </div>
+    </div>
+
+    <div id="habilidadeRaca1" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="npcHabilidadeNome"></h1>
+            <p style="margin-bottom: 10px;"><em id="npcHabilidadeTipo"></em></p>
+            <p id="npcHabilidadeDescricao"></p>
+        </div>
+    </div>
+
+    <div id="habilidadeClasseBasica1" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="habilidadeClasseBasica1Nome"></h1>
+            <p style="margin-bottom: 10px;"><em id="habilidadeClasseBasica1Tipo"></em></p>
+            <p id="habilidadeClasseBasica1Mana"></p>
+            <p id="habilidadeClasseBasica1Dif"></p>
+            <hr>
+            <p id="habilidadeClasseBasica1Desc"></p>
+        </div>
+    </div>
+
+    <div id="habilidadeClasseBasica2" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="habilidadeClasseBasica2Nome"></h1>
+            <p style="margin-bottom: 10px;"><em id="habilidadeClasseBasica2Tipo"></em></p>
+            <p id="habilidadeClasseBasica2Mana"></p>
+            <p id="habilidadeClasseBasica2Dif"></p>
+            <hr>
+            <p id="habilidadeClasseBasica2Desc"></p>
+        </div>
+    </div>
+
+    <div id="habilidadeClasseBasica3" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="habilidadeClasseBasica3Nome"></h1>
+            <p style="margin-bottom: 10px;"><em id="habilidadeClasseBasica3Tipo"></em></p>
+            <p id="habilidadeClasseBasica3Mana"></p>
+            <p id="habilidadeClasseBasica3Dif"></p>
+            <hr>
+            <p id="habilidadeClasseBasica3Desc"></p>
+        </div>
+    </div>
+
+    <div id="habilidadeClasseAvancada" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="habilidadeClasseAvancadaNome"></h1>
+            <p style="margin-bottom: 10px;"><em id="habilidadeClasseAvancadaTipo"></em></p>
+            <p id="habilidadeClasseAvancadaMana"></p>
+            <p id="habilidadeClasseAvancadaDif"></p>
+            <hr>
+            <p id="habilidadeClasseAvancadaDesc"></p>
+        </div>
+    </div>
+
+    <div id="habilidadeClasseFinal" class="modal-window">
+        <a href="#" title="Fechar" class="modal-close" id="FecharModal"><i class="material-icons">close</i></a>
+        <div>
+            <h1 id="habilidadeFinalNome"></h1>
+            <p style="margin-bottom: 10px;"><em id="habilidadeFinalTipo"></em></p>
+            <p id="habilidadeFinalMana"></p>
+            <p id="habilidadeFinalDif"></p>
+            <hr>
+            <p id="habilidadeFinalDesc"></p>
+        </div>
+    </div>
+
+    <div class="recarregarFicha" onclick="geraNPC()"><i class="material-icons">refresh</i></div>
+    <div class="downloadFicha" id="btnSave2"><i class="material-icons">file_download</i></div>
+
+    <script>
+        //Atalhos de teclado!
+        document.addEventListener('keydown', function (event) {
+            const key = event.key; // const {key} = event; in ES6+
+            if (key === "Escape") {
+                document.getElementById('FecharModal').click();
+                document.getElementsByClassName("comandoBox")[0].style.visibility = "hidden";
+                document.getElementsByClassName("abrirComandoBox")[0].style.visibility = "visible";
+            }
+            if (key === "c") {
+                exibirBox();
+            }
+            if (key === "r") {
+                geraNPC();
+            }
+            if (key === "h") {
+                geraHabilidades();
+            }
+            if (key === "S") {
+                document.getElementById('btnSave2').click();
+            }
+            if (key === "m") {
+                document.getElementById('menuOpen').click();
+            }
+            if (key === "e") {
+                geraEquipamento();
+            }
+        });
+        // SALVAR HTML COMO PNG
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $(function () {
+            $("#btnSave").click(function () {
+                html2canvas($("#principalBox"), {
+                    onrendered: function (canvas) {
+                        theCanvas = canvas;
+                        document.body.appendChild(canvas);
+
+                        // Convert and download as image 
+                        Canvas2Image.saveAsPNG(canvas);
+                        $("#img-out").append(canvas);
+                        // Clean up 
+                        document.body.removeChild(canvas);
+                    }
+                });
+            });
+
+            $("#btnSave2").click(function () {
+                html2canvas($("#principalBox"), {
+                    onrendered: function (canvas) {
+                        saveAs(canvas.toDataURL(), 'PdM - ' + nome + '.png');
+                    }
+                });
+            });
+
+            function saveAs(uri, filename) {
+                var link = document.createElement('a');
+                if (typeof link.download === 'string') {
+                    link.href = uri;
+                    link.download = filename;
+
+                    //Firefox requires the link to be in the body
+                    document.body.appendChild(link);
+
+                    //simulate click
+                    link.click();
+
+                    //remove the link when done
+                    document.body.removeChild(link);
+                } else {
+                    window.open(uri);
+                }
+            }
+        });
+
+        function screenShot() {
+            html2canvas(document.querySelector("#fichaPersonagem")).then(canvas => {
+                var dataURL = canvas.toDataURL("image/png");
+                var data = atob(dataURL.substring("data:image/png;base64,".length)),
+                    asArray = new Uint8Array(data.length);
+
+                for (var i = 0, len = data.length; i < len; ++i) {
+                    asArray[i] = data.charCodeAt(i);
+                }
+
+                var blob = new Blob([asArray.buffer], {
+                    type: "image/png"
+                });
+                saveAs(blob, "photo.png");
+            });
+        }
+        // CAIXA DE COMANDOS ARRASTÁVEL
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        dragElement(document.getElementById("comBox"));
+
+        function dragElement(elmnt) {
+            var pos1 = 0,
+                pos2 = 0,
+                pos3 = 0,
+                pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+    <script type="text/javascript" src="scripts/geraNpc.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>

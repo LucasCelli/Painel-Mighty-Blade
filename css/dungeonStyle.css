@@ -1,0 +1,62 @@
+table {
+	border-collapse: collapse;
+	background-color: #263238;
+}
+
+.wall {
+	background-color: #192125;
+	width: 10px;
+	height: 10px;
+}
+
+.floor {
+	background-color: #263238;
+	width: 10px;
+	height: 10px;
+}
+
+.enemy {
+	content: url(../imagens/dungeon/combate.png);
+	background-color: #263238;
+	width: 15px;
+	height: 15px;
+}
+
+.health {
+	background-color: #263238;
+	width: 4px;
+	height: 4px;
+}
+
+.weapon {
+	content: url(../imagens/dungeon/bau.png);
+	background-color: #263238;
+	width: 20px;
+	height: 20px;
+}
+
+.nextlvl {
+	content: url(../imagens/dungeon/saida.png);
+	background-color: #263238;
+	width: 40px;
+	height: 40px;
+}
+
+.player {
+	content: url(../imagens/dungeon/entrada.png);
+	background-color: #263238;
+	width: 40px;
+	height: 40px;
+}
+
+.boss {
+	content: url(../imagens/dungeon/boss.png);
+	background-color: #263238;
+	width: 40px;
+	height: 40px;
+}
+.legenda{
+	display: block;
+	padding: 10px;
+	background: #263238;
+}

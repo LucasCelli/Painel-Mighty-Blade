@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Painel - Testes Básicos</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">Testes<span>Básicos</span></header>
+
+    <div class="menuopen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/redpg.html">RedPG</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="principalBox">
+        <p class="fonte"><strong>Fonte:</strong>
+            <a href="https://coisinhaverde.com.br/mightyblade/downloads" target="_blank">Manual Mighty Blade 3.4.1</a>
+            [Pág.23 à 29]
+        </p>
+        <input type="text" id="pesquisarEntrada" class="pesquisarEntrada" onkeyup="pesquisarTabela()"
+            placeholder="Pesquisar teste...">
+        <table id="tabela" class="tabela">
+            <tr class="tabelaHeader">
+                <th style="width:20%;" onclick="ordenarTabela(0)">Teste</th>
+                <th style="width:20%;" onclick="ordenarTabela(1)">Tipo</th>
+                <th style="width:60%;" onclick="ordenarTabela(2)">Descrição</th>
+            </tr>
+            <tr id="AG">
+                <td>Agarrar</td>
+                <td>Agilidade/Força</td>
+                <td>Confronto onde o vencedor consegue segurar o alvo.
+                    O alvo pode tentar se livrar com outro confronto.
+                    O atacante pode Apertar ou Derrubar o alvo como ação livre.
+                    Ambos são incapazes de se mover e não podem esquivar de ataques mas podem bloquear.
+                    <a class="btnModal" href="#agarrar">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="AP">
+                <td>Apertar</td>
+                <td>Força</td>
+                <td>Apertar causa dano em alguém sendo Agarrado.
+                    Faça um Confronto para causar dano igual a sua Força/contusão (se empatar ou perder você continua
+                    segurando o alvo, que não sofre dano. )
+                    Caso tenha uma falha crítica o alvo se solta.
+                    <a class="btnModal" href="#apertar">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="AA">
+                <td>Armar/Desarmar Armadilhas</td>
+                <td>Inteligência</td>
+                <td>Todos podem tentar encontrar armadilhas (dificuldade igual ao resultado de quem a armou).
+                    Teste Inapto para Montar/Desarmar sem a habilidade Armadilheiro ou um Kit de Arrombamento, sem ambos
+                    estes testes não são possíveis.
+                    A dificuldade para desarmar uma armadilha é a mesma para percebê-la.
+                    <a class="btnModal" href="#armarArmadilhas">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="AF">
+                <td>Abrir fechaduras</td>
+                <td>Agilidade/Inteligência</td>
+                <td>Uma fechadura rústica tem dificuldade 10, cadeados medianos 12 e fechaduras mais elaboradas 14.
+                    Teste Inapto sem a habilidade Gatuno ou um Kit de Arrombamento, sem ambos o teste não é possível.
+                    <a class="btnModal" href="#abrirFechaduras">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="BG">
+                <td>Barganha</td>
+                <td>Vontade/Inteligência</td>
+                <td>Confronto entre os envolvidos. Quem perder é convencido pelo outro.
+                    Se ocorrer uma falha critica, o derrotado faz péssimo negócio.
+                    Em caso de empate a negociação fica num impasse (um novo teste pode ser necessário).
+                    <a class="btnModal" href="#barganha">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="CV">
+                <td>Cavalgar</td>
+                <td>Agilidade</td>
+                <td>Não exige testes a menos que o animal seja exposto a algo mais estressante (sofrer ataque, se
+                    assuste, ser conduzido durante um combate).
+                    Falhar significa cair da montaria. Penalidade -2 sem rédeas, bônus +2 com selas e estribos.
+                    Dificuldade dos testes igual a Vontade do animal, modificado pela situação.
+                    Segurar uma arma de Duas Mãos causa penalidade de -2 mesmo com rédeas.
+                    <a class="btnModal" href="#cavalgar">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="CR">
+                <td>Caçar/Rastrear</td>
+                <td>Inteligência</td>
+                <td>Caçar uma criatura qualquer tem dificuldade 10 (varia com ambiente).
+                    Rastrear uma criatura específica tem dificuldade igual a Determinação do alvo.
+                    Criaturas grandes tem dificuldade -2, e pequenas tem difficuldade +2.
+                    Florestas e regiões geladas tem dificuldade -2. Montanhosas, regiões rochosas e planícies tem
+                    dificuldade +2. (modificadores cumulativos).
+                    Se o alvo estiver tentando cobrir seus rastros, use as regras de Ocultar-se/Camuflar-se.
+                    <a class="btnModal" href="#cacar">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="CO">
+                <td>Correr</td>
+                <td>Agilidade/Força</td>
+                <td>Perseguir alguém requer um Confronto, o maior vence. Um empate significa que ambos tem a mesma
+                    velocidade – geralmente dando a vantagem ao perseguido.
+                    Corrida de resistência é para cobrir grandes distâncias sem se exaurir. Teste de Força para cada Km
+                    de corrida, caso falhe perde 10 pontos de mana (dificuldade 10, mas sobe em +1 a cada falha e/ou Km
+                    percorrido). Este teste não é afetado pelo Deslocamento do personagem.
+                    <a class="btnModal" href="#correr">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="CM">
+                <td>Cuidados médicos</td>
+                <td>Inteligência</td>
+                <td>Requer um Kit de Cura para remover efeito de sangramento, infecção ou veneno natural ou estabilizar um personagem Por um Fio (Dificuldade 12. Gasta 1 minuto).
+                    Venenos e infecções mágicas tem dificuldade 16. Caso falhe pode tentar novamente. Falha crítica fracassa e inutiliza o Kit.
+                    Sucesso crítico recupera 10 Pontos de Vida do paciente (se for um personagem Por um Fio, ele ignora o tempo de reestabelecimento).
+                    Sem um Kit esse teste é realizado como Inapto.
+                    <a class="btnModal" href="#cuidadosMedicos">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="DL">
+                <td>Decifrar escritas</td>
+                <td>Inteligência</td>
+                <td>Sempre que encontrar um texto em uma língua que não conheça – seja por nunca tê-la estudado, seja
+                    por ser uma língua antiga – o personagem pode, se tiver acesso a uma biblioteca de estudos, tentar
+                    decifrar o texto. A dificuldade varia entre 10 e 16, dependendo do quão estranho o idioma for para o
+                    personagem – o Mestre tem a palavra final.
+                    <a class="btnModal" href="#decifrarEscritas">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="DE">
+                <td>Derrubar</td>
+                <td>Agilidade/Força</td>
+                <td>Se tiver conseguido agarrar um alvo (veja Agarrar, acima), um personagem pode tentar Derrubar o
+                    alvo. Derrubar um alvo exige uma Ação de Rodada Completa e um Confronto de Agilidade ou Força (o que
+                    for mais alto). Se o atacante vencer o teste, o alvo está caído. Em caso de empate ou se o resultado
+                    do alvo for mais alto, o atacante continua segurando o alvo, mas ele não cai. Caso o atacante tenha
+                    uma falha crítica no teste (independente do resultado do alvo) é ele quem cai.
+                    <a class="btnModal" href="#derrubar">[Ver Descrição Completa]</a>
+                </td>
+            </tr>
+            <tr id="DR">
+                <td>Desenhar runas e selos</td>
+                <td>Inteligência/Vontade</td>
+                <td>Magia é uma categoria de Habilidade (veja Habilidades na página 12). Uma Classe cujas Habilidades
+                    incluam Magias é considerada uma Classe conjuradora – e, por extensão, um personagem dessa Classe é
+                    considerado um conjurador. Para usar qualquer Habilidade do tipo Magia, os conjuradores desenham no
+                    ar o símbolo mágico correspondente aos efeitos que querem desencadear. Esses traçados mágicos são
+                    chamados de Runas Arcanas ou Selos Místicos, e são parte crucial da realização de uma magia –
+                    correspondendo à Dificuldade da Magia tem para ser conjurada. Runas Arcanas são traçados usados
+                    especificamente para conjurar magias arcanas enquanto Selos Místicos são utilizados para conjurar
+                    magias místicas. </td>
+            </tr>
+            <tr id="EF">
+                <td>Encontrar abrigo/Forragear</td>
+                <td>Inteligência</td>
+                <td>Para que um personagem seja capaz de encontrar um abrigo natural (para passar a noite, descansar em
+                    um local relativamente seguro ou se abrigar das intempéries do clima) ou encontrar frutas e vegetais
+                    para se alimentar (ou para serem usados na fabricação de poções, caso o personagem tenha a
+                    Habilidade Herbalismo) ele gasta cerca de uma hora por tentativa e precisa ser bem-sucedido em um
+                    teste de Inteligência. A dificuldade básica do teste é 12, mas deve ser ajustada de acordo com o
+                    terreno e com o clima. Bosques, florestas e pântanos diminuem a dificuldade em 2 quando o personagem
+                    procura por frutas e plantas, enquanto planícies, regiões montanhosas ou desérticas aumentam a
+                    dificuldade em 2. Quando estiver procurando abrigo, regiões montanhosas diminuem a dificuldade em 2,
+                    enquanto pântanos, desertos e planícies aumentam a dificuldade em 2. Além disso chuva forte, climas
+                    muito frios ou invernos rigorosos impõem um redutor de -2 em ambos os testes. Sucesso no teste
+                    significa que o personagem conseguiu frutas e plantas suficientes para um refeição ou para produzir
+                    uma poção ou encontrou um abrigo adequado.</td>
+            </tr>
+            <tr id="EA">
+                <td>Encontrar Armadilhas</td>
+                <td>Inteligência</td>
+                <td>Veja Armar/Desarmar Armadilhas.</td>
+            </tr>
+            <tr id="EP">
+                <td>Erguer/Puxar/Empurrar peso</td>
+                <td>Força</td>
+                <td>Veja as regras de Carga.</td>
+            </tr>
+            <tr id="ES">
+                <td>Escalar</td>
+                <td>Força/Agilidade</td>
+                <td>Um personagem pode escalar tanto usando sua resistência física para se puxar para cima (Força),
+                    quanto sua flexibilidade e destreza para achar e encaixar os pontos de apoio mais apropriados
+                    (Agilidade). A dificuldade varia do quão íngreme e rico em pontos de apoio for o obstáculo a ser
+                    transposto. Uma árvore cheia de galhos firmes e fáceis de alcançar teria dificuldade 10, uma encosta
+                    pouco ingrime e com várias reentrâncias seria 12, uma encosta ingrime com poucos apoios seria 14 e
+                    uma parede lisa com poucos apoios 16. Um Kit de escalada oferece um bônus de +2 nesse teste. </td>
+            </tr>
+            <tr id="FB">
+                <td>Furtar bolsos</td>
+                <td>Agilidade</td>
+                <td>Quando o personagem tenta tocar, tirar ou colocar itens carregados por uma criatura de modo furtivo
+                    (ou seja, sem ser percebido) ele deve fazer um ataque normal com sua Agilidade contra a Esquiva do
+                    alvo, ignorando quaisquer bônus de armadura. O Mestre pode exigir testes de Mover-se em Silêncio ou
+                    Ocultar-se (veja abaixo) para que o personagem se aproxime do alvo sem ser percebido (o que
+                    geralmente oferece um bônus de +1d6 na sua tentativa de Furtar Bolsos). Se o personagem não tiver
+                    sucesso no teste, ele não consegue realizar seu intento, mas o alvo não percebe a tentativa. Se o
+                    resultado do teste for uma falha crítica, o personagem chama atenção do alvo no ato, sendo pego em
+                    flagrante! Se o personagem tiver sucesso, ele consegue tirar/deixar o item intencionado da vítima ou
+                    realizar a ação que pretendia. O alvo só irá perceber a ação quando tiver sua atenção voltada para a
+                    questão – ele decide usar o item roubado, ou encontra o item plantado enquanto procura por alguma
+                    outra coisa entre seus pertences, por exemplo. </td>
+            </tr>
+            <tr id="LT">
+                <td>Ler tomos de magia</td>
+                <td>Inteligência</td>
+                <td>Ver Magia pàg 36</td>
+            </tr>
+            <tr id="MP">
+                <td>Mentir/Perceber mentiras</td>
+                <td>Inteligência/Vontade</td>
+                <td>Quando um personagem quiser mentir e alguém tiver alguma razão pra não acreditar nele, ele deve
+                    fazer um teste de Vontade. O resultado se torna a Dificuldade para o observador perceber a mentira
+                    com um teste de Inteligência ou Vontade (o que for maior). Caso o personagem que tente mentir tenha
+                    uma falha crítica no seu teste, ele gagueja, se contradiz ou de alguma outra forma torna óbvia a sua
+                    tentativa de dissimular a verdade. </td>
+            </tr>
+            <tr id="MS">
+                <td>Mover-se em silêncio</td>
+                <td>Agilidade</td>
+                <td>Quando deseja se movimentar sem fazer ruídos, para não atrair atenção indesejada ou para fazer um
+                    ataque surpresa num alvo desavisado, o personagem deve fazer um teste de Agilidade. O resultado será
+                    a dificuldade para alguém ouvi-lo com um teste de Inteligência. Certas situações podem impor
+                    modificadores – um calçamento de pedra limpo pode significar um bônus de +2 ao teste, enquanto uma
+                    área coberta de seixos ou brita, pode impor uma penalidade de -2. A Habilidade Furtivo (ver Ladino e
+                    Patrulheiro) concede +1d6 nos testes para Mover-se em Silêncio. </td>
+            </tr>
+            <tr id="NA">
+                <td>Nadar</td>
+                <td>Força</td>
+                <td>Um personagem que precise se deslocar em águas profundas precisará nadar. Para isso ele deve vencer
+                    um teste de Força, com dificuldade 10. Se estiver usando armadura, a dificuldade passa para 12. Se a
+                    armadura tiver a Característica Pesada a dificuldade passa para 14 e se tiver a Característica
+                    Rígida a dificuldade no teste passa a ser 16. Além disso as condições da água podem impor
+                    penalidades – uma correnteza muito forte ou ondas muito intensas poderiam impor uma penalidade de -2
+                    (ou -4 se houver correnteza E ondas!). A cada minuto que o personagem estiver nadando ele deve
+                    repetir o teste. Um sucesso significa que ele avança, falha significa que ele não só não consegue
+                    avançar como também perde 10 Pontos de Mana devido ao esforço inútil e uma Falha Crítica significa
+                    que ele não avança (ou é carregado pela corrente, se houver) e além de perder 10 Pontos de Mana
+                    devido ao esforço, perde também 10 Pontos de Vida por engolir água. Se o personagem ficar sem mana
+                    enquanto estiver nadando, ele fica sem forças e morre afogado. </td>
+            </tr>
+            <tr id="OC">
+                <td>Ocultar-se/Camuflar-se</td>
+                <td>Inteligência/Vontade</td>
+                <td>Seja cobrindo-se de folhas em uma floresta, usando roupas negras na escuridão da noite urbana ou
+                    simplesmente se misturando causalmente numa multidão, um personagem deve fazer um teste de
+                    Inteligência para saber se consegue passar despercebido ou manter-se fora da vista dos outros. O
+                    resultado nesse teste é a dificuldade para que alguém procurando o personagem (ou por algo
+                    escondido) o encontre. O personagem pode tentar se mover e permanecer camuflado, mas ele se
+                    movimenta apenas a metade do deslocamento e seu teste sofre uma penalidade de -2. A Habilidade
+                    Furtivo (ver as Classes Ladino e Patrulheiro) concede +1d6 nos testes para se esconder. O Mestre
+                    deve impor penalidades caso o ambiente não esteja favorável (uma área de pouca vegetação, ou uma rua
+                    deserta bem iluminada ou se o personagem for de uma Raça incomum na região, dependendo do caso).
+                </td>
+            </tr>
+            <tr id="PI">
+                <td>Pesquisar informações</td>
+                <td>Inteligência/Vontade</td>
+                <td>Para encontrar uma determinada informação em uma biblioteca, ou sistema de arquivo de documentos
+                    semelhante, o personagem deve fazer um teste de Inteligência, cuja dificuldade será atribuída pelo
+                    Mestre dependendo do quão disponível a informação está. No entanto, para ir de taverna em taverna,
+                    falando com as pessoas em busca de um rumor ou pista, o personagem faz um teste de Vontade, a
+                    dificuldade vai depender do quão dispostas as pessoas vão estar para falar do assunto. O Mestre pode
+                    exigir mais de um teste dependendo da complexidade da informação, e ir dando pequenas pistas a cada
+                    sucesso, mas lembre-se de intercalar esses testes com história, e permita que, se os jogadores
+                    estiverem interagindo com PDMs (Personagens do Mestre), eles representem um pouco as conversas.
+                </td>
+            </tr>
+            <tr id="SA">
+                <td>Saltar</td>
+                <td>Agilidade/Força</td>
+                <td>Testes para saltar podem ser feitos com força ou Agilidade, mas estes testes são geralmente feitos
+                    para ver se um personagem consegue realizar alguma ação durante o salto – seja um confronto com
+                    outro personagem para alcançar um item alto ou competir para ver quem salta mais longe, por exemplo
+                    – já que a distância de saltos (tanto em altura quanto em distância) é fixa, conforme explicado no
+                    item Outras formas de movimentação (pág., 19). Se o personagem tentar saltar uma distância maior do
+                    que sua capacidade de salto, em geral ele tentará um teste de escalada (veja acima) para tentar se
+                    agarrar em uma superfície ao invés de cair. </td>
+            </tr>
+            <tr id="SE">
+                <td>Seduzir</td>
+                <td>Vontade</td>
+                <td>Sedução como a capacidade de usar o desejo do outro para torná-lo mais suscetível a suas sugestões,
+                    normalmente usando seu carisma para isso (se favores ou bens estiverem envolvidos, a questão passa a
+                    ser mais de negociação do que sedução). Sedução geralmente é usada com relação ao gênero oposto, mas
+                    isso não é uma regra absoluta – perceba que tentar seduzir uma criatura do mesmo gênero do
+                    personagem pode ofender o alvo mesmo que o personagem tenha sucesso! Faça um Confronto de Vontade
+                    com o alvo. Se vencer o teste, o alvo torna-se amigável. Em caso de empate ou se o resultado do alvo
+                    for mais alto, ele não está interessado ou a tentativa pode nem sequer ter sido percebida. Caso o
+                    personagem tenha uma falha crítica no teste (independente do resultado do alvo) sua aproximação terá
+                    sido considerada grosseira e ofensiva, e o alvo torna-se inamistoso – ou até mesmo agressivo! Um
+                    personagem amigável estará inclinado a ajudar o personagem, talvez oferecendo informações ou mesmo
+                    oferecendo algum pequeno presente – como uma bebida ou uma refeição, por exemplo. A raça dos
+                    personagens envolvidos é relevante para esse teste. Há três grandes classificações pertinentes nesse
+                    contexto: Tipo, biologia e origem. Interações entre Esfinges (Centauros, Naga e Tritões) e
+                    Humanóides ou Esfinges de outras raças sempre deve ser tratada como se o personagem fosse Inapto em
+                    suas tentativas de sedução. Draconianos, Grotons, Naga e Tritões, por terem características
+                    biológicas muito distantes das outras raças sempre impõem um redutor de -4 em suas tentativas de
+                    sedução (cumulativas com os redutores impostos por interação Humanóide/Esfinge) com qualquer outra
+                    raça. Esse redutor é reduzido para -2 quando essas raças interagem entre si. Os Mahoks são um caso a
+                    parte, já que eles são biologicamente muito distantes de todas as outras raças, e suas tentativas de
+                    sedução com membros de quaisquer outras raças sempre tem um redutor de -4. Entre os outros
+                    Humanóides, há um redutor de -2 quando uma espécie originária de Gaian (Astérios, Hamelins, Jubans e
+                    Tailox) interage com as outras raças Humanóides (Aesires, Anões, Elfos, Faens, Faunos, Fira,
+                    Humanos, Metadílios e Orcs). Esse redutor não se aplica quando essas raças interagem com outras
+                    raças da mesma origem. Finalmente, os Goblins são universalmente desprezados, e suas tentativas de
+                    sedução sempre estão sujeitas à um redutor de -2 (mesmo com relação à outros goblins!). </td>
+            </tr>
+        </table>
+
+        <div id="agarrar" class="modal-window">
+            <a href="#" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Agarrar</h1>
+                <p>Para tentar agarrar um oponente em combate é necessário um Confronto de Agilidade ou Força (o que
+                    for mais alto). Se o atacante tiver um resultado igual ou maior do que o do alvo, ele consegue
+                    segura-lo. Uma vez seguro, o alvo pode, no seu turno, tentar se libertar (realizando o teste
+                    novamente), e o atacante pode, no seu turno, soltar o alvo (com uma ação livre) ou tentar apertar ou
+                    derrubar o alvo. Para isso, veja as ações Apertar e Derrubar, abaixo. Um personagem segurando outro
+                    precisa usar pelo menos uma mão para fazer isso, e portanto só pode realizar ações com a mão livre.
+                    Ambos os personagens envolvidos são incapazes de se mover, e não podem se esquivar de ataques - mas
+                    ainda podem bloquear normalmente.</p>
+            </div>
+        </div>
+        <div id="apertar" class="modal-window">
+            <a href="#AG" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Apertar</h1>
+                <p>Se tiver conseguido Agarrar um alvo (veja Agarrar, acima), um personagem pode apertar o alvo para
+                    causar dano. Para isso faça um Confronto de Força. Se o atacante vencer o teste, ele causa dano
+                    igual à Força/contusão. Em caso de empate ou se o resultado do alvo for mais alto, o atacante
+                    continua segurando o alvo, mas este não sofre dano. Caso o atacante tenha uma falha crítica no teste
+                    (independente do resultado do alvo) ele solta o alvo. </p>
+            </div>
+        </div>
+        <div id="armarArmadilhas" class="modal-window">
+            <a href="#AP" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Armar/Desarmar Armadilhas</h1>
+                <p>Qualquer um é apto a fazer um teste de Inteligência para encontrar armadilhas. A dificuldade é igual
+                    ao resultado de quem armou a armadilha (veja a seguir). Para desarmar ou montar uma armadilha é
+                    necessário a Habilidade Armadilheiro (na lista dos Ladinos e dos Patrulheiros). A dificuldade para
+                    desarmar uma armadilha é a mesma para percebê-la. Para montar uma armadilha você também precisa de
+                    um Kit de Arrombamento e materiais apropriados, dependendo do tipo de armadilha. O seu resultado num
+                    teste de Inteligência, enquanto monta a armadilha, será a dificuldade de encontrá-la e desarma-la.
+                    Sem a Habilidade Armadilheiro ou sem um Kit de Arrombamento o personagem é considerado Inapto tanto
+                    no teste para desarmar armadilhas quanto no teste para montá-las, e sem ambos, estes testes não são
+                    possíveis.</p>
+            </div>
+        </div>
+        <div id="abrirFechaduras" class="modal-window">
+            <a href="#AD" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Abrir Fechaduras</h1>
+                <p>A Habilidade Gatuno dos Ladinos lhes permitem abrir fechaduras sem ter as chaves, desde que ele
+                    tenha um Kit de Arrombamento. A dificuldade depende de quão segura é a fechadura, uma fechadura
+                    rústica (como uma aldabra ou ferrolho) tem dificuldade 10, enquanto cadeados medianos têm
+                    Dificuldade 12 e fechaduras particularmente elaboradas teriam dificuldade 14 – aparatos com
+                    dificuldades mais altas do que essa seriam obras-primas de engenharia. Sem a Habilidade Gatuno ou
+                    sem um Kit de Arrombamento o personagem é considerado Inapto nesse teste e sem ambos o teste não é
+                    possível.</p>
+            </div>
+        </div>
+        <div id="barganha" class="modal-window">
+            <a href="#AF" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Barganha</h1>
+                <p>Sempre que entra em algum tipo de negociação, o Mestre deve encorajar os jogadores a atuarem como
+                    seus personagens, fazendo suas ofertas e pechinchando preços. Se a interpretação em si, na opinião
+                    do Mestre, não for suficiente para definir o negócio, este pode pedir um Confronto entre a Vontade
+                    ou Inteligência dos envolvidos (o que for maior). Aquele que perder é convencido pelo outro. No caso
+                    de uma falha critica em um dos lados, este acaba por fazer um péssimo negócio (se estava comprando,
+                    acaba pagando muito mais do que devia, se não tinha tanto dinheiro pode até mesmo dar algum item na
+                    troca; se estava vendendo irá vender por um preço abaixo do que ele mesmo pagou), independente do
+                    resultado do outro – a menos que ambos tenham uma falha crítica! Em caso de empate a negociação fica
+                    num empasse, e um novo teste pode ser necessário.</p>
+            </div>
+        </div>
+        <div id="cavalgar" class="modal-window">
+            <a href="#BG" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Cavalgar</h1>
+                <p>Andar a cavalo (ou uma montaria típica da região do personagem) faz parte do dia a dia em um cenário
+                    de fantasia medieval e não exige testes. Porem qualquer atividade mais estressante do que
+                    simplesmente usar um animal como transporte irá exigir um teste para controlar a montaria – caso a
+                    montaria se assuste, seja atingida por um ataque ou mesmo para conduzi-la durante um combate. Uma
+                    falha nesses testes geralmente significa que o cavaleiro caiu da montaria. A ausência de rédeas
+                    impõe uma penalidade de -2 ao teste, enquanto uma sela com estribos concedem um bônus de +2. A
+                    dificuldade dos testes de montaria é igual à Vontade do animal, modificado pela situação – mesmo que
+                    o animal tenha rédeas, se o personagem estiver usando ambas as mãos para utilizar uma arma, ele
+                    ainda sofre a penalidade de -2. </p>
+            </div>
+        </div>
+        <div id="cacar" class="modal-window">
+            <a href="#CV" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Caçar/Rastrear</h1>
+                <p>Quando um personagem tenta rastrear um animal, monstro ou outra criatura qualquer, ele faz um teste
+                    de Inteligência. A dificuldade depende de alguns fatores: Se estiver caçando uma criatura qualquer
+                    (para alimentação, por exemplo) a dificuldade é 10, modificada pelo tipo de ambiente. Se estiver
+                    rastreando uma criatura específica, a Dificuldade será igual à Determinação do alvo. Criaturas
+                    grandes e/ou pesadas deixam rastros mais fáceis de seguir, enquanto criaturas menores/mais leves
+                    deixam menos rastros. Diminua a dificuldade em 2 se a criatura tiver mais de 3 metros (se ela tiver
+                    dois valores, use o maior) ou pesar mais do que 300 quilos, ou aumente a dificuldade em 2 Se a
+                    criatura tiver menos de 1 metro (novamente, se ela tiver dois valores, use o maior) ou pesar menos
+                    de 50 quilos. Além disso, em regiões geladas, florestas e em climas frios a dificuldade diminui em
+                    2, enquanto em regiões montanhosas, rochosas e em planícies a dificuldade aumenta em 2. Todos esses
+                    modificadores são cumulativos. Se a criatura estiver ativamente tentando cobrir seus rastros, use as
+                    mesmas regras de Ocultar-se/Camuflar-se (veja adiante). Sucesso no teste significa que o rastreador
+                    encontrou o rastro e tem uma ideia de há quanto tempo atrás a criatura passou por ali, enquanto uma
+                    falha significa que o rastreador não acha nenhum rastro para seguir. O teste deve ser repetido uma
+                    vez por dia ou toda vez que houver mudança de terreno até que o rastreador encontre o alvo ou perca
+                    o rastro. Note que chuvas fortes, nevascas e tempestades de vento podem destruir completamente os
+                    rastros, tornando impossível segui-los.</p>
+            </div>
+        </div>
+        <div id="correr" class="modal-window">
+            <a href="#CR" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Correr</h1>
+                <p>Existem dois tipos de corrida, a de velocidade e a de resistência. Uma corrida de velocidade
+                    normalmente indica um personagem perseguindo alguém, ou alguma coisa. Para determinar se o perseguir
+                    alcança o perseguido, faça um Confronto de Agilidade ou Força (o que for mais alto). Empates
+                    significam que ambos os corredores têm a mesma velocidade – geralmente dando a vantagem ao
+                    perseguido. A corrida de resistência é para cobrir grandes distâncias sem se exaurir. O personagem
+                    faz um teste de Força para cada quilometro de corrida, em caso de falha ele perde 10 pontos de mana.
+                    A dificuldade é 10, mas sobe em +1 a cada falha e/ou quilometro percorrido. Este teste não é afetado
+                    pelo Deslocamento do personagem.</p>
+            </div>
+        </div>
+        <div id="cuidadosMedicos" class="modal-window">
+            <a href="#CM" title="Fechar" class="modal-close"><i class="material-icons">close</i></a>
+            <div>
+                <h1>Cuidados Médicos</h1>
+                <p>Um personagem pode tentar curar ferimentos usando um Kit de Cura. Essa ação pode ser utilizada para vários propósitos: remover um efeito de sangramento, eliminar uma infecção ou veneno natural que esteja afetando um alvo ou estabilizar um personagem que esteja Por um Fio (veja a página 15 para mais detalhes) gastando 1 minuto e fazendo um teste bem sucedido de Inteligência (dificuldade 12). Venenos e infecções mágicas também podem ser curadas da mesma maneira, mas a dificuldade desses testes é 16. Em caso de falha, o tratamento não funcionou, mas o personagem pode tentar novamente o teste (gastando mais 1 minuto e realizando o mesmo teste novamente). Em caso de falha crítica nesse teste, ele se atrapalhou ao usar o Kit de Cura e inutilizou o item além do tratamento não funcionar. Sucesso crítico nesse teste significa que o curativo foi muito bem feito, e além de recuperar o alvo do efeito desejado, o personagem também recupera 10 Pontos de Vida do paciente (se o alvo for um personagem Por um Fio, ele também ignora o tempo de restabelecimento em caso de um sucesso decisivo nesse teste). Um personagem sem um Kit de cura pode tentar esses procedimentos, mas fará o teste como se fosse Inapto.</p>
+            </div>
+        </div>
+    </section>
+    <script>
+        $(document).ready(function () {
+            var pathname = window.location.href.split('#')[0];
+            $('a[href^="#"]').each(function () {
+                var $this = $(this),
+                    link = $this.attr('href');
+                $this.attr('href', pathname + link);
+            });
+        });
+    </script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>

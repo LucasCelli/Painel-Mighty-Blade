@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Painel - Deslocamento e Carga</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">Regras<span>Deslocamento</span></header>
+
+    <div class="menuopen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/redpg.html">RedPG</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="principalBox">
+        <p class="fonte"><strong>Fonte:</strong>
+            <a href="https://coisinhaverde.com.br/mightyblade/downloads" target="_blank">Manual Mighty Blade 3.4.1</a>
+            [Pág.19 e 20]
+        </p>
+        <table id="tabela" class="tabela" style="float:left;width:50%">
+            <tr class="tabelaHeader">
+                <th style="width:25%;">Agilidade</th>
+                <th style="width:25%;">Deslocamento</th>
+                <th style="width:50%;">Corrida</th>
+            </tr>
+            <tr>
+                <td>2 ou 3</td>
+                <td>6 metros</td>
+                <td>24 metros</td>
+            </tr>
+            <tr>
+                <td>4 ou 5</td>
+                <td>7 metros</td>
+                <td>28 metros</td>
+            </tr>
+            <tr>
+                <td>6 ou 7</td>
+                <td>8 metros</td>
+                <td>32 metros</td>
+            </tr>
+            <tr>
+                <td>8 ou 9</td>
+                <td>9 metros</td>
+                <td>36 metros</td>
+            </tr>
+            <tr>
+                <td>10 ou 11</td>
+                <td>10 metros</td>
+                <td>40 metros</td>
+            </tr>
+            <tr>
+                <td>12 ou 13</td>
+                <td>11 metros</td>
+                <td>44 metros</td>
+            </tr>
+        </table>
+
+
+        <table id="tabela" class="tabela" style="float:right;width:50%">
+            <tr class="tabelaHeader">
+                <th style="width:50%;">Força</th>
+                <th style="width:50%;">Carga</th>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>14 Kg</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>21 Kg</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>28 Kg</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>35 Kg</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>42 Kg</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>49 Kg</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>56 Kg</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>63 Kg</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>70 Kg</td>
+            </tr>
+            <tr>
+                <td>+1</td>
+                <td>+7 Kg</td>
+            </tr>
+        </table>
+    </section>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>

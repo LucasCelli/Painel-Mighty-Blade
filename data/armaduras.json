@@ -1,0 +1,32 @@
+{
+    "listaArmaduras": [{
+        "nome": "Túnica Pesada",
+        "defesa": "1",
+        "fn": "1",
+        "obs": "-"
+    },{
+        "nome": "Armadura de Couro",
+        "defesa": "2",
+        "fn": "2",
+        "obs": "-"
+    },
+    {
+        "nome": "Armadura Simples",
+        "defesa": "3",
+        "fn": "4",
+        "obs": "Pesada"
+    },
+    {
+        "nome": "Armadura de Batalha",
+        "defesa": "4",
+        "fn": "6",
+        "obs": "-"
+    },
+    {
+        "nome": "Armadura Completa",
+        "defesa": "5",
+        "fn": "8",
+        "obs": "-"
+    }
+]
+}

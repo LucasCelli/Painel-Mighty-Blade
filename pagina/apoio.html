@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Feedback | Painel do Mestre</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+</head>
+<!-- dsadasdasdas -->
+<body>
+
+    <header class="header">Faz a boa<span>Por favor?</span></header>
+    
+    <div class="menuopen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/feedback.html">Feedback</a></li>
+                <li><a href="pagina/apoio.html">Apoio</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <sidebar class="sidebarBox" id="sidebar"></sidebar>
+
+    <section class="principalBox">
+        <div class="avisoWip">
+            <p>Pix: </p>
+            <p><strong>lukascelli@gmail.com</strong></p>
+            <p><strong>67 99858-3009</strong></p>
+            <p>&nbsp;</p> 
+            <img src="/imagens/pix.png" alt="Código QR contendo uma chave PIX" width="200px">
+            <p>O site tá online porque eu pago a hospedagem e o domínio do meu bolso, são R$ 277,00 da Hospedagem e R$ 65,00 do domínio (lusca.me).</p>
+            <p>Então se tu tiver um troco sobrando e quiser ajudar, o pix ta a disposição kkkkk. Qualquer doação de qualquer valor será registrada na tabela abaixo, se não deseja seu nome deixa a mensagem na transferencia.</p>
+            <p>&nbsp;</p>
+            <p>Se depender de mim jamais em momento algum o acesso a esta plataforma será cobrado, vou me virando até não dar mais, se ocorrer isso fica offline.</p>
+            <p>&nbsp;</p>
+            <hr>
+            <table id="tabela" class="tabela">
+                <tr class="tabelaHeader">
+                    <th style="width:75%;" onclick="ordenarTabela(0)">Doador</th>
+                    <th style="width:25%;" onclick="ordenarTabela(1)">Valor</th>
+                </tr>
+                <tr>
+                    <td>Lucas Celli</td>
+                    <td>R$ 342,00</td>
+                </tr>
+            </table>
+            
+        </div>
+    </section>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>

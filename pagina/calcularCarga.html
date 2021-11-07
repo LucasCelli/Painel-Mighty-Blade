@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Painel - Carga</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+    <style>
+        .container{
+            display: block;
+            position: relative;
+            width: 100%;
+        }
+        .inputValor::placeholder{
+            font-size: 136px;
+        }
+        .inputValor{
+            display: inline-block;
+            width: calc(100% / 2 - 20px);
+            height: 200px;
+            line-height: 250px;
+            padding: 0px;
+            margin-bottom: 50px;
+            font-size: 136px;
+            text-align: center;
+            background: #263238;
+            border: none;
+            color: #ffffff;
+            outline: none;
+        }
+        .resultado{
+            display: inline-block;
+            width: calc(100% / 3 - 45px);
+            height: 100px;
+            line-height: 100px;
+            padding: 15px;
+            margin: 0 auto;
+            margin-bottom: 55px;
+            font-size: 18px;
+            color: #ffffff;
+            background: #192125;
+        }
+        .resultado:last-child{
+            margin-bottom: 0px;
+        }
+        .resultado p{
+            line-height: 15px;
+        }
+        .resultado span{
+            font-size: 2em;
+            font-weight: bolder;
+        }
+        .labeln{
+            display: inline-block;
+            width: calc(100% / 2 - 30px);
+            font-size: 1.5em;
+            background: #192125;
+            color: #ffffff;
+            font-weight: 100;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body onload="calcular()">
+
+    <header class="header">Calcular<span>Carga</span></header>
+
+    <div class="menuopen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/redpg.html">RedPG</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="principalBox">
+        <p class="fonte"><strong>Fonte:</strong>
+            <a href="https://coisinhaverde.com.br/mightyblade/downloads" target="_blank">Manual Mighty Blade 3.4.1</a>
+            [Pág.20]
+        </p>
+        <div class="container">
+            <label class="labeln">Força:</label> <label class="labeln">Bônus:</label>
+            <input type="number" id='forca' class="inputValor" type="text" placeholder="0" value="3" required/>
+            <input type="number" id='bonus' class="inputValor" type="text" placeholder="0" required/>
+        </div>
+
+        <div class="container">
+            <div class="resultado"><p>Carga Básica:</p><span id="cargaBasica">0Kg</span></div>
+            <div class="resultado"><p>Carga Pesada:</p><span id="cargaPesada">0Kg</span></div>
+            <div class="resultado"><p>Carga Máxima:</p><span id="cargaMaxima">0Kg</span></div>
+        </div>
+    </section>
+    <script>
+        function calcular(){
+            var forca  = Number($('#forca').val());
+                var bonus = Number($('#bonus').val());
+                $('#cargaBasica').html((forca * 7) + bonus + "Kg");
+                $('#cargaPesada').html((forca * 7) * 5 + "Kg");
+                $('#cargaMaxima').html((forca * 7) * 10 + "Kg");
+        }
+            $('input').keyup(function(){
+                calcular();
+            });
+            $('input').click(function(){
+                calcular();
+            });
+    </script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>

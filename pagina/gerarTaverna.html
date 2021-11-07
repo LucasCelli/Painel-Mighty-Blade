@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Painel - Testes Básicos</title>
+    <base href="../">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/dungeonStyle.css">
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;800&display=swap" rel="stylesheet">
+    <style>
+        .principalBox {
+            background: #37474F;
+            color: #FFF;
+        }
+
+        .fonte {
+            margin-top: 5px;
+            background: #263238;
+        }
+
+        .fonte a {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body onload="gerar();">
+
+    <header class="header">Gerar<span>Taverna</span></header>
+
+    <div class="menuopen">
+        <div id="barA"></div>
+        <div id="barB"></div>
+        <div id="barC"></div>
+    </div>
+    <div class="menuclose">
+        <div class="close"></div>
+        <nav>
+            <ul>
+                <li class="title">Páginas</li>
+                <li><a href="index.html">Início</a></li>
+                <li><a>Tabelas & Testes</a>
+                    <ul>
+                        <li><a href="pagina/testesBasicos.html">Testes Básicos</a></li>
+                        <li><a href="pagina/dificuldadeTestes.html">Dificuldade dos Testes</a></li>
+                        <li><a href="pagina/produzirItem.html">Produzir Itens</a></li>
+                        <li><a href="pagina/resistenciaMateriais.html">Resistência de Materiais</a></li>
+                        <li><a href="pagina/componentesAlquimicos.html">Componentes Alquímicos</a></li>
+                        <li><a href="pagina/deslocamento.html">Deslocamento e Carga</a></li>
+                    </ul>
+                </li>
+                <li><a>Cálculos</a>
+                    <ul>
+                        <li><a href="pagina/calcularCarga.html">Calcular Carga</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina/gerarPersonagem.html">Gerar Personagem</a></li>
+                <li><a href="pagina/gerarDungeon.html">Gerar Dungeon</a></li>
+                <li><a href="pagina/rolarDados.html">Rolar Dados</a></li>
+                <li><a href="pagina/redpg.html">RedPG</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="principalBox">
+
+        <div id="teste">A</div>
+
+        <button class="btnGerar" onclick="gerar();" id="btnGerar" style="margin-top: 25px;">Gerar
+            Novamente</button>
+
+        <canvas id="game" width="500" height="500" />
+        <script>
+            function gerar() {
+                var canvas = document.getElementById('game'); //create canvas var
+                var canvasContext = canvas.getContext('2d'); //make it 2d	
+                var w = 20; //width of tiles
+
+                var rows = 50; //how many rows of tiles
+                var cols = 50; //how many cols of tiles
+
+                var grid = []; //where we store the map
+
+                var rooms = []; //where we store the rooms
+                var collide = false; //whether or not the rooms are colliding
+
+                var amount = 2; //amount of rooms
+                var size = 5; //the actuall size will be a number bettween 5 and 10 | e.g: size+sizeMin
+                var sizeMin = 5;
+
+                var disX; //distance x between rooms
+                var disY; //distance y between rooms
+                var corridorW = 4; //corridor width
+
+
+                ////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////
+
+                function Cell(c, r, x, y) //cell object
+                {
+                    this.c = c //column it is in
+                    this.r = r //row it is in
+                    this.x = x //x coord
+                    this.y = y //y coord
+                    this.empty = false //empty or full?
+
+                    this.show = function () //draw the map
+                    {
+                        if (this.empty == false) {
+                            canvasContext.fillStyle = "#37474f"
+                            canvasContext.fillRect(this.x, this.y, w, w)
+                        } else {
+                            canvasContext.fillStyle = "#FAA945"
+                            canvasContext.fillRect(this.x, this.y, w, w)
+                        }
+                    }
+
+                    this.carve = function (dis, x, y) //carve out the rooms
+                    {
+                        for (var i = 0; i < rooms.length; i++) {
+                            if (this.c >= rooms[i].y / w && this.c < rooms[i].y / w + rooms[i].h / w && this.r >= rooms[
+                                    i]
+                                .x / w && this.r < rooms[i].x / w + rooms[i].w / w) {
+                                this.empty = true
+                            }
+                        }
+                    }
+
+                    this.carveH = function (dis, x, y) //carve out the horizontal corridor
+                    {
+                        if (this.r >= x && this.r < x + dis && this.c < y + corridorW && this.c > y - corridorW) {
+                            this.empty = true
+                        }
+                    }
+                    this.carveV = function (dis, x, y) //carve out the vertical corridor
+                    {
+                        if (this.c >= y && this.c < y + dis && this.r < x + corridorW && this.r > x - corridorW) {
+                            this.empty = true
+                        }
+                    }
+                }
+
+                function makeGrid() //create the array of tiles
+                {
+                    for (var r = 0; r < rows; r++) {
+                        for (var c = 0; c < cols; c++) {
+                            var y = c * w
+                            var x = r * w
+                            var cell = new Cell(c, r, x, y);
+                            grid.push(cell);
+                        }
+                    }
+                }
+
+                ////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////
+
+                function Room(x, y, width, height, i) //room object
+                {
+                    this.x = (x - 1) * w; //column
+                    this.y = (y - 1) * w; //row
+                    this.w = width * w; //width
+                    this.h = height * w; //height
+
+                    this.center = [Math.floor(this.x / w + width / 2), Math.floor(this.y / w + height / 2)] //center
+
+                    this.draw = function () //draw the number of the room
+                    {
+                        canvasContext.fillStyle = "white"
+                        canvasContext.fillText(i, this.x + this.w / 2, this.y + this.h / 2 - 20)
+                    }
+                }
+
+                function createRooms() //create the rooms
+                {
+                    for (var i = 0; i < amount; i++) //for the amount of rooms you want
+                    {
+                        var room = new Room(Math.floor(Math.random() * rows) + 1, Math.floor(Math.random() * cols) + 1,
+                            Math
+                            .floor(Math.random() * size) + sizeMin, Math.floor(Math.random() * size) + sizeMin, i)
+                        //create a room object ^
+
+                        if (i > 0) //if not the first room
+                        {
+                            if (rooms[0].x + rooms[0].w >= canvas.width || rooms[0].x <= 0 || rooms[0].y + rooms[0].h >=
+                                canvas.height || rooms[0].y <= 0) //if first room is outside the canvas
+                            {
+                                rooms = [] //restart
+                                createRooms();
+                                break;
+                            }
+
+                            for (var e = 0; e < rooms.length; e++) //for all the previous rooms
+                            {
+                                collide = false //they are not colliding
+
+                                if (room.x <= rooms[e].x + rooms[e].w && room.x + room.w >= rooms[e].x && room.y <=
+                                    rooms[e]
+                                    .y + rooms[e].h && room.y + room.h >= rooms[e].y) //if colliding with previous room
+                                {
+                                    collide = true; //kill room
+                                    i--
+                                    break;
+                                } else if (room.x + room.w >= canvas.width || room.x <= 0 || room.y + room.h >= canvas
+                                    .height || room.y <= 0) //if outside of canvas
+                                {
+                                    collide = true; //kill room
+                                    i--;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (collide == false) //if they have not collided
+                        {
+                            rooms.push(room) //add room to the array
+                            if (i > 0) //make corridors
+                            {
+                                hCorridor(rooms[i - 1].center[0], room.center[0], rooms[i - 1].center[1], room.center[
+                                    1])
+                                vCorridor(rooms[i - 1].center[0], room.center[0], rooms[i - 1].center[1], room.center[
+                                    1])
+                            }
+                        }
+                    }
+                }
+
+                ////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////
+
+                function hCorridor(x1, x2, y1, y2) //horizontal corridor creator
+                {
+                    if (x1 > x2) //if the first room is further towards the right then the second one
+                    {
+                        disX = x1 - x2 //find the distance between rooms
+                        disX += 1
+
+                        for (var i = 0; i < grid.length; i++) {
+                            grid[i].carveH(disX, x2, y2) //carve out the corridor
+                        }
+                    } else //if the second room is further towards the right then the first one
+                    {
+                        disX = x2 - x1 //find the distance between rooms
+                        disX += 1
+                        for (var i = 0; i < grid.length; i++) {
+                            grid[i].carveH(disX, x1, y1) //carve out corridor
+                        }
+                    }
+
+                }
+
+                function vCorridor(x1, x2, y1, y2) //vertical corridor creator
+                {
+                    var x;
+
+                    if (y1 > y2) //if the first room is further towards the bottom then the second one
+                    {
+                        disY = y1 - y2 //find the distance between rooms
+                        disY += 1
+
+                        if (x2 + (disX - 1) > x1 + (disX - 1)) //find the correct x coord
+                        {
+                            x = x2
+                        } else {
+                            x = x2 + (disX - 1)
+                        }
+
+                        for (var i = 0; i < grid.length; i++) {
+                            grid[i].carveV(disY, x, y2) //carve out corridor
+                        }
+                    } else //if the second room is further towards the bottom then the first one
+                    {
+                        disY = y2 - y1 //find the distance between rooms
+                        disY += 1
+
+                        if (x1 + (disX - 1) > x2 + (disX - 1)) //find the correct x coord
+                        {
+                            x = x1
+                        } else {
+                            x = x1 + (disX - 1)
+                        }
+
+                        for (var i = 0; i < grid.length; i++) {
+                            grid[i].carveV(disY, x, y1) //carve out corridor
+                        }
+
+                    }
+
+                }
+
+                ////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////
+
+
+                function draw() {
+                    for (var i = 0; i < grid.length; i++) {
+                        grid[i].carve(); //carve out the rooms
+                        grid[i].show(); //draw the map
+                    }
+
+                    
+                }
+
+                makeGrid() //make map
+                createRooms() //make rooms
+                draw() //update
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                listaObjetosMasc = ["Aboé", "Amuleto", "Antídoto", "Armário", "Astrolábio", "Bálsamo", "Baralho",
+                    "Bastão", "Brinco", "Cadinho", "Cesto", "Cinto", "Cinturão", "Compasso", "Couro", "Crânio",
+                    "Distintivo", "Espelho", "Esquadro", "Estribo", "Formão", "Frasco", "Galho", "Grimório",
+                    "Isqueiro", "Jarro", "Lampião", "Lenço", "Livro", "Malho", "Manto", "Martelo", "Medalhão",
+                    "Óleo", "Osso", "Papiro", "Pelego", "Pergaminho", "Pino", "Prego", "Relicário", "Sabão", "Saco",
+                    "Sino", "Trevo", "Trono", "Velino", "Veneno", "Violino", "Alaúde", "Alforge", "Balde",
+                    "Barrilete", "Bracelete", "Broche", "Cálice", "Cofre", "Martelete", "Odre", "Orbe", "Pente",
+                    "Perfume", "Pingente", "Pote", "Robe", "Sextante", "Sinete", "Virote", "Anel", "Anzol", "Arpéu",
+                    "Barril", "Baú", "Buril", "Cantil", "Carretel", "Chapéu", "Cinzel", "Cobertor", "Cristal",
+                    "Tambor", "Totem", "Pincel", "Emblema", "Diadema", "Tapete", "Vestido", "Arco", "Bordão",
+                    "Cajado", "Chicote", "Tridente", "Dardo", "Escudo", "Malho",
+                    "Mangual", "Martelo", "Porrete"
+                ];
+                listaObjetosFem = ["Agulha", "Algema", "Aljava", "Ampulheta", "Arca", "Balança", "Bandana", "Bolsa",
+                    "Bússola", "Caixa", "Caneca", "Capa", "Carta", "Casca", "Corda", "Coroa", "Orbe", "Pá",
+                    "Escada", "Escama", "Esfera", "Estatueta", "Faca", "Fechadura", "Flauta", "Flecha", "Gaita",
+                    "Garatéia", "Garrafa", "Gázua", "Harpa", "Jarra", "Lâmpada", "Lanterna", "Lima", "Linha",
+                    "Lira", "Luneta", "Luva", "Marreta", "Máscara", "Mesa", "Mochila", "Panela", "Pederneira",
+                    "Pedra", "Pena", "Picareta", "Pluma", "Pulseira", "Régua", "Roda", "Roudana", "Roupa", "Sela",
+                    "Sovela", "Tabarda", "Távola", "Tenda", "Tesoura", "Tinta", "Tocha", "Touca", "Trombeta",
+                    "Túnica", "Vara", "Vela", "Terracota", "Corrente", "Estrepe", "Bandeira", "Adaga", "Alabarda",
+                    "Azagaia", "Besta", "Espada", "Foice", "Funda", "Lança", "Maça",
+                    "Machadinha", "Picareta", "Rapieira", "Rede", "Clava"
+                ];
+
+                listaCorMasc = ["Azul", "Amarelo", "Vermelho", "Verde", "Cinza", "Roxo", "Marrom", "Lilás", "Púrpura",
+                    "Rosa", "Castanho", "Escarlate", "Anil", "Rubro", "Âmbar", "Carmesim", "Ciano", "Índigo",
+                    "Prateado", "Prata", "Violeta", "Dourado", "Cinzento"
+                ];
+                listaCorFem = ["Azul", "Amarela", "Vermelha", "Verde", "Cinza", "Roxa", "Marrom", "Lilás", "Púrpura",
+                    "Rosa", "Castanha", "Escarlate", "Anil", "Rubra", "Âmbar", "Carmesim", "Ciana", "Índiga",
+                    "Prateada", "Prata", "Violeta", "Dourada", "Cinzenta"
+                ];
+
+                listaCriaturaMasc = ["Gnoll", "Alce", "Anjo", "Fantasma", "Basilisco", "Blazekin", "Bode", "Burro",
+                    "Camelo", "Canidrako", "Cão", "Carniçal", "Cavalo", "Ciclope", "Corvo", "Crocodilo", "Demônio",
+                    "Dragão", "Elefante", "Elemental", "Escorpião", "Espantalho", "Espectro", "Esqueleto",
+                    "Esquilo", "Ettin", "Fogo-Fátuo", "Gato", "Gigante", "Gnomo", "Goblin", "Golem", "Gorgon",
+                    "Grifo", "Guardião", "Guepardo", "Hipogrifo", "Hobgoblin", "Homúnculo", "Imp", "Íncubo",
+                    "Infectado", "Kobold", "Kookan", "Leão", "Licantropo", "Lich", "Limo", "Lobisomem", "Lobo",
+                    "Macaco", "Mamute", "Mancubus", "Minotauro", "Morcego", "Ogro", "Oni", "Pégaso", "Pônei",
+                    "Rato", "Rinoceronte", "Sasgo", "Sátiro", "Tarrasque", "Tigre", "Touro", "Troll", "Tubarão",
+                    "Unicórnio", "Urso", "Vampiro", "Verme", "Wyvern", "Yeti", "Ygdrus", "Zumbi", "Troglodita",
+                    "Gorila"
+                ];
+                listaCriaturaFem = ["Águia", "Anomalia", "Aranha", "Baleia", "Banshee", "Bruxa", "Cocatriz", "Coruja",
+                    "Dríade", "Esfige", "Sucubus", "Gárgula", "Yaga", "Harpia", "Hidra", "Hiena", "Lâmia",
+                    "Mantícora", "Medusa", "Múmia", "Quimera", "Raposa", "Ratazana", "Salamandra", "Serpente",
+                    "Sombra", "Aparição"
+                ];
+
+                listaPedra = ["Diamante", "Rubi", "Safira", "Esmeralda", "Quartzo", "Azurita", "Ágata", "Hematita",
+                    "Malaquita", "Citrina", "Pedra", "Jaspe", "Opala", "Pérola", "Ametista", "Ônix", "Jade",
+                    "Topázio", "Safira", "Rubi"
+                ];
+
+                listaAdjetivoMasc = ["afetusoso", "agitado", "agressivo", "alegre", "amaldiçoado", "ambicioso",
+                    "amoroso", "animado", "antipático", "apaixonado", "atencioso", "ativo", "atrasado",
+                    "autoritário", "aventureiro", "belo", "bobo", "brincalhão", "carismático", "confiável",
+                    "cooperativo", "corajoso", "cruel", "desagradável", "desleal", "desonesto", "desrespeitoso",
+                    "destemido", "destroçado", "determinado", "devotado", "discreto", "educado", "egoísta",
+                    "emotivo", "encantador", "enganador", "engraçado", "exigente", "falador", "feio", "feliz",
+                    "fiel", "forte", "frio", "grosseiro", "honesto", "horripilante", "impaciente", "impiedoso",
+                    "impulsivo", "informado", "inquieto", "insensível", "intelectual", "inteligente", "mal",
+                    "mal humorado", "maldito", "malicioso", "mandão", "melancólico", "menhoso", "moído", "morto",
+                    "nervoso", "objetivo", "otimista", "ousado", "pacato", "paciente", "passivo", "persistente",
+                    "persuasivo", "pessimista", "pretencioso", "psicótico", "quebrado", "reflexivo", "religioso",
+                    "repugnante", "resistente", "rude", "satisteito", "selvagem", "sentimental", "sincero",
+                    "solitário", "sorridente", "submisso", "surpreso", "teimoso", "tímido", "tolerante",
+                    "tranquilo", "triste", "violento", "redondo", "quadrado", "triangular"
+                ];
+                listaAdjetivoFem = ["afetuosa", "agitada", "agressiva", "alegre", "amaldiçoada", "ambiciosa", "amorosa",
+                    "animada", "apaixonada", "apática", "atenciosa", "ativa", "atrasada", "autoritária",
+                    "aventureira", "bela", "boba", "brincalhona", "carismática", "confiável", "cooperativa",
+                    "corajosa", "cruel", "desagradável", "desleal", "desonesta", "desrespeitosa", "destemida",
+                    "destroçada", "determinada", "devotada", "discreta", "educada", "egoísta", "emotiva",
+                    "encantadora", "enganadora", "engraçada", "exigente", "faladora", "feia", "feliz", "fiel",
+                    "forte", "fria", "grosseira", "honesta", "horripilante", "impaciente", "impiedosa", "impulsiva",
+                    "informada", "inquieta", "insensível", "intelectual", "inteligente", "má", "mal humorada",
+                    "maldita", "maliciosa", "mandona", "manhosa", "melancólica", "moída", "morta", "nervosa",
+                    "objetiva", "otimista", "ousada", "pacata", "paciente", "passiva", "persistente", "persuasiva",
+                    "pessimista", "pretensiosa", "psicótica", "quebrada", "reflexiva", "religiosa", "repugnante",
+                    "resistente", "rude", "satisfeita", "selvagem", "sentimental", "sincera", "solitária",
+                    "sorridente", "submissa", "surpresa", "teimosa", "tímida", "tolerante", "tranquila", "triste",
+                    "violenta", "redonda", "quadrada", "triangular"
+                ];
+
+
+                const objetoMasc = listaObjetosMasc[(Math.random() * listaObjetosMasc.length) | 0];
+                const objetoFem = listaObjetosFem[(Math.random() * listaObjetosFem.length) | 0];
+
+                const corMasc = listaCorMasc[(Math.random() * listaCorMasc.length) | 0];
+                const corFem = listaCorFem[(Math.random() * listaCorFem.length) | 0];
+
+                const criaturaMasc = listaCriaturaMasc[(Math.random() * listaCriaturaMasc.length) | 0];
+                const criaturaFem = listaCriaturaFem[(Math.random() * listaCriaturaFem.length) | 0];
+
+                const pedra = listaPedra[(Math.random() * listaPedra.length) | 0];
+
+                const adjMasc = listaAdjetivoMasc[(Math.random() * listaAdjetivoMasc.length) | 0];
+                const adjFem = listaAdjetivoFem[(Math.random() * listaAdjetivoFem.length) | 0];
+
+                const mixNome0 = `O ${objetoMasc} ${corMasc}`;
+
+                const mixNome1 = `O ${objetoMasc} do ${criaturaMasc}`;
+                const mixNome2 = `O ${objetoMasc} da ${criaturaFem}`;
+                const mixNome3 = `A ${objetoFem} do ${criaturaMasc}`;
+                const mixNome4 = `A ${objetoFem} da ${criaturaFem}`;
+                // Converte a primeira letra do adjetivo para Maiúscula
+                const mixNome5 = `O ${criaturaMasc} ${adjMasc.charAt(0).toUpperCase() + adjMasc.slice(1)}`;
+                const mixNome6 = `A ${criaturaFem} ${adjFem.charAt(0).toUpperCase() + adjFem.slice(1)}`;
+                const mixNome7 = `O ${criaturaMasc} ${corMasc}`;
+                const mixNome8 = `A ${criaturaFem} ${corFem}`;
+                const mixNome9 = `O ${objetoMasc} ${corMasc}`;
+                const mixNome10 = `A ${objetoFem} ${corFem}`;
+
+                listaNome = [mixNome1, mixNome2, mixNome3, mixNome4, mixNome5, mixNome6, mixNome7, mixNome8, mixNome9,
+                    mixNome10
+                ];
+
+                nomeTaverna = listaNome[(Math.random() * listaNome.length) | 0];
+
+                document.getElementById("teste").innerHTML = nomeTaverna;
+            }
+        </script>
+
+
+
+    </section>
+    <script>
+        $(document).ready(function () {
+            var pathname = window.location.href.split('#')[0];
+            $('a[href^="#"]').each(function () {
+                var $this = $(this),
+                    link = $this.attr('href');
+                $this.attr('href', pathname + link);
+            });
+        });
+    </script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+
+</html>
